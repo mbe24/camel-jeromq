@@ -1,0 +1,12 @@
+spring:
+  main:
+    banner-mode: "OFF"
+
+camel:
+  springboot:
+    main-run-controller: false
+    name: CamelTest
+
+# The application configuration properties
+timer:
+  publishPeriod: 500

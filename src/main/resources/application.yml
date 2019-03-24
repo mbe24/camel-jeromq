@@ -1,0 +1,11 @@
+camel:
+  springboot:
+    main-run-controller: true
+    name: CamelExample
+  context:
+    shutdown-strategy:
+      timeout: 10
+
+# The application configuration properties
+timer:
+  publishPeriod: 500
