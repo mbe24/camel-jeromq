@@ -30,7 +30,6 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.apache.camel:camel-spring-boot-starter:$camelVersion")
-    implementation("org.apache.camel:camel-stream-starter:$camelVersion")
     implementation("org.apache-extras.camel-extra:camel-zeromq:2.22.0") {
         exclude(group = "org.zeromq", module = "zeromq-scala-binding_2.10")
         exclude(group = "com.typesafe.akka", module = "akka-zeromq_2.10")
