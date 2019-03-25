@@ -32,10 +32,5 @@ public class ApplicationTest {
                 .create();
 
         org.junit.Assert.assertTrue(notify.matches(3, TimeUnit.SECONDS));
-
-        //ShutdownStrategy strategy = camelContext.getShutdownStrategy();
-        //strategy.setTimeout(10);
-        //strategy.setTimeUnit(TimeUnit.SECONDS);
-        //strategy.setShutdownNowOnTimeout(true);
     }
 }
