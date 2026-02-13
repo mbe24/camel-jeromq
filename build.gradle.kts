@@ -1,22 +1,21 @@
 plugins {
     java
     application
-    id("org.springframework.boot") version "2.1.2.RELEASE"
-    id("io.spring.dependency-management") version "1.0.6.RELEASE"
-    `build-scan`
+    id("org.springframework.boot") version "3.5.9"
+    id("io.spring.dependency-management") version "1.1.7"
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 application {
-    mainClassName = "org.beyene.camel.Application"
+    mainClass = "org.beyene.camel.Application"
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 tasks.withType<JavaCompile>().configureEach {
@@ -24,28 +23,25 @@ tasks.withType<JavaCompile>().configureEach {
     options.encoding = "UTF-8"
 }
 
-dependencies {
-    // 3.0.0-M1, see https://stackoverflow.com/q/55314360/1809463
-    val camelVersion = "2.23.1"
-
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.apache.camel:camel-spring-boot-starter:$camelVersion")
-    implementation("org.apache-extras.camel-extra:camel-zeromq:2.22.0") {
-        exclude(group = "org.zeromq", module = "zeromq-scala-binding_2.10")
-        exclude(group = "com.typesafe.akka", module = "akka-zeromq_2.10")
-        exclude(group = "com.typesafe.akka", module = "akka-actor_2.10")
-    }
-    implementation("org.zeromq:jeromq:0.4.0")
-
-    testImplementation("junit:junit:4.12")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.apache.camel:camel-test:$camelVersion")
-    testImplementation("org.apache.camel:camel-test-spring:$camelVersion")
+tasks.named<Test>("test") {
+    useJUnitPlatform()
 }
 
-if (hasProperty("buildScan")) {
-    buildScan {
-        termsOfServiceUrl = "https://gradle.com/terms-of-service"
-        termsOfServiceAgree = "yes"
-    }
+dependencies {
+    val camelVersion = "4.17.0"
+
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.apache.camel.springboot:camel-spring-boot-starter:$camelVersion")
+    // Note: camel-zeromq from camel-extra is not compatible with Camel 4.x
+    // The project would need to find an alternative ZeroMQ integration or
+    // wait for camel-extra to release a Camel 4.x compatible version
+    // implementation("org.apache-extras.camel-extra:camel-zeromq:2.25.2") {
+    //     exclude(group = "org.zeromq", module = "zeromq-scala-binding_2.10")
+    //     exclude(group = "com.typesafe.akka", module = "akka-zeromq_2.10")
+    //     exclude(group = "com.typesafe.akka", module = "akka-actor_2.10")
+    // }
+    implementation("org.zeromq:jeromq:0.6.0")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.apache.camel:camel-core:$camelVersion")
 }
