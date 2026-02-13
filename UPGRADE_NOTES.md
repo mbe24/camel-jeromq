@@ -20,7 +20,8 @@ This document describes the tech stack upgrade from legacy versions to the lates
 ### 1. Java Version
 - **Change**: Java 8 → Java 25
 - **Impact**: Uses latest LTS features and syntax
-- **Configuration**: Added `gradle.properties` to specify Java 25 toolchain
+- **Configuration**: Uses Gradle Java toolchain to automatically detect Java 25
+- **Setup**: Set `JAVA_HOME` environment variable to Java 25 installation or let Gradle auto-detect
 
 ### 2. Gradle
 - **Change**: Gradle 5.3 → Gradle 9.3.1
@@ -165,13 +166,13 @@ Updated `.travis.yml` to use:
 ## Files Modified
 
 1. `gradle/wrapper/gradle-wrapper.properties` - Gradle version
-2. `build.gradle.kts` - All dependency versions, plugins, Java version
-3. `gradle.properties` - Java toolchain configuration (new file)
-4. `src/main/java/org/beyene/camel/Application.java` - Removed deprecated ShutdownStrategy
-5. `src/main/java/org/beyene/camel/ZmqPubRoute.java` - Modified for compatibility
-6. `src/main/java/org/beyene/camel/ZmqSubRoute.java` - Modified for compatibility
-7. `src/test/java/org/beyene/camel/ApplicationTest.java` - JUnit 5 migration
-8. `.travis.yml` - Java version update
+2. `build.gradle.kts` - All dependency versions, plugins, Java version, toolchain
+3. `src/main/java/org/beyene/camel/Application.java` - Removed deprecated ShutdownStrategy
+4. `src/main/java/org/beyene/camel/ZmqPubRoute.java` - Modified for compatibility
+5. `src/main/java/org/beyene/camel/ZmqSubRoute.java` - Modified for compatibility
+6. `src/test/java/org/beyene/camel/ApplicationTest.java` - JUnit 5 migration
+7. `.travis.yml` - Java version update
+8. `UPGRADE_NOTES.md` - Comprehensive upgrade documentation (new file)
 
 ## Performance Notes
 

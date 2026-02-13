@@ -52,10 +52,12 @@ public class ApplicationTest {
 
     @Test
     public void testDirectRoute() {
-        // Test the direct route
-        producerTemplate.sendBody("direct:zmq-sub-test", "Test Message");
+        // Test the direct route - should process without throwing exception
+        String testMessage = "Test Message";
+        producerTemplate.sendBody("direct:zmq-sub-test", testMessage);
         
-        // If we get here without exception, the route is working
-        assertTrue(true);
+        // Verify the route exists and is started
+        assertNotNull(camelContext.getRoute("zmq-sub"));
+        assertTrue(camelContext.getRouteController().getRouteStatus("zmq-sub").isStarted());
     }
 }
